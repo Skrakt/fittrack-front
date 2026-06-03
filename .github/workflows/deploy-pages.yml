@@ -9,16 +9,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -27,7 +22,7 @@ jobs:
       - run: npm ci
 
       - name: Build Angular
-        run: npx ng build --configuration=production --base-href /fittrack-front/
+        run: npx ng build --base-href /fittrack-front/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
